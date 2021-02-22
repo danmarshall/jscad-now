@@ -2,7 +2,10 @@
   "name": "jscad-now",
   "version": "1.0.0",
   "description": "Instantly view a jscad module",
-  "main": "index.js",
+  "bin": {
+    "jscad-now": "bin/cli.js"
+  },
+  "main": "src/server/index.js",
   "scripts": {
     "test": "node ./src/server/index.js ./test/index.js"
   },
