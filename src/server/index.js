@@ -4,7 +4,7 @@ const path = require('path')
 
 function createProject(opts) {
   // create file from template
-  const template = fs.readFileSync('./src/template.js', 'utf-8')
+  const template = fs.readFileSync('./src/server/template.js', 'utf-8')
   const header = '//this is a generated file, safe to delete it'
   const content = template.replace('<INPUT>', opts.modelFile.replace(/\\/g, '/'))
   const fileName = 'jscad-now.js'

@@ -4,7 +4,7 @@
   "description": "Instantly view a jscad module",
   "main": "index.js",
   "scripts": {
-    "test": "node ./src/server.js ./test/index.js"
+    "test": "node ./src/server/index.js ./test/index.js"
   },
   "repository": {
     "type": "git",
