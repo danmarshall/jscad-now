@@ -1,3 +1,3 @@
 var input = require('<INPUT>');
-var client = require('./src/client');
+var client = require('<JSCAD-NOW-SRC>/client');
 client(input.main || input);
