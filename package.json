@@ -1,0 +1,27 @@
+{
+  "name": "jscad-now",
+  "version": "1.0.0",
+  "description": "Instantly view a jscad module",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./src/server.js ./test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danmarshall/jscad-now.git"
+  },
+  "keywords": [],
+  "author": "Dan Marshall",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danmarshall/jscad-now/issues"
+  },
+  "homepage": "https://github.com/danmarshall/jscad-now#readme",
+  "dependencies": {
+    "@jscad/regl-renderer": "^2.0.0-alpha.12",
+    "budo": "^11.6.4"
+  },
+  "devDependencies": {
+    "@jscad/modeling": "^2.0.0-alpha.10"
+  }
+}
