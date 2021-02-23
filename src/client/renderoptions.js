@@ -1,7 +1,7 @@
 const { drawCommands } = require('@jscad/regl-renderer')
 
-module.exports = function (scope, solids) {
-    const { camera, container } = scope
+module.exports = function (scope) {
+    const { camera, container, solids } = scope
     return {
         glOptions: { container },
         camera,
