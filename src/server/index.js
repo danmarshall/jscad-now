@@ -37,17 +37,25 @@ function createServer(opts) {
 }
 
 function listener(opts) {
-  const allCommands = `type "exit" to close server and clean up "${opts.project.fileName}" project file`
+  const close = () => {
+    console.log('exiting...')
+    opts.budoInstance.close()
+    process.stdin.removeAllListeners('data')
+  }
+  const allCommands = `type "exit" or CTRL-c to close server and clean up "${opts.project.fileName}" project file`
   opts.budoInstance.on('connect', () => {
     console.log(allCommands)
   })
   process.stdin.setEncoding('utf-8')
   process.stdin.on('data', data => {
     if (data.trim() === 'exit') {
-      opts.budoInstance.close()
+      close()
     } else {
       console.log(`unknown command\n${allCommands}`)
     }
+  })
+  process.on("SIGINT", function () {
+    close()
   })
 }
 
