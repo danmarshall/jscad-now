@@ -63,9 +63,7 @@ catch (e) { }
 if (modelFileExists) {
 
   const project = createProject({ modelFile })
-
   const budoInstance = createServer(project)
-
   listener({ project, budoInstance })
 
 } else {
