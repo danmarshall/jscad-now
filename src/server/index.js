@@ -12,7 +12,7 @@ function createProject(opts) {
   const header = '//this is a generated file, safe to delete it'
   const content = template
     .replace('<INPUT>', fixSlashes(opts.modelFile))
-    .replace('<JSCAD-NOW-SRC>', path.join(fixSlashes(__dirname), '..'))
+    .replace('<JSCAD-NOW-SRC>', fixSlashes(path.join(__dirname, '..')))
   const fileName = 'jscad-now.js'
   fs.writeFileSync(fileName, `${header}\n${content}`, 'utf-8')
   return {
