@@ -1,84 +1,151 @@
-const { prepareRender, drawCommands, cameras, entitiesFromSolids } = require('@jscad/regl-renderer') // replace this with the correct import
+const { controls, prepareRender, drawCommands, cameras, entitiesFromSolids } = require('@jscad/regl-renderer')
 
 function demo(demoSolids) {
+    let orbitControls = controls.orbit.defaults
 
-  // setup demo solids data
-  const width = window.innerWidth
-  const height = window.innerHeight
+    const rotateSpeed = 0.002
+    const panSpeed = 1
+    const zoomSpeed = 0.08
 
-  // process entities and inject extras
-  const solids = entitiesFromSolids({}, demoSolids({ scale: 1 }))
+    let rotateDelta = [0, 0]
+    let panDelta = [0, 0]
+    let zoomDelta = 0
 
-  // prepare the camera
-  const perspectiveCamera = cameras.perspective
-  const camera = Object.assign({}, perspectiveCamera.defaults)
-  perspectiveCamera.setProjection(camera, camera, { width, height })
-  perspectiveCamera.update(camera, camera)
+    const el = document.createElement('div');
+    el.setAttribute('style', 'height:700px')
+    document.body.appendChild(el);
 
-  const options = {
-    glOptions: { container: document.body },
-    camera,
-    drawCommands: {
-      // draw commands bootstrap themselves the first time they are run
-      drawGrid: drawCommands.drawGrid, // require('./src/rendering/drawGrid/index.js'),
-      drawAxis: drawCommands.drawAxis, // require('./src/rendering/drawAxis'),
-      drawMesh: drawCommands.drawMesh // require('./src/rendering/drawMesh/index.js')
-    },
-    // data
-    entities: [
-      { // grid data
-        // the choice of what draw command to use is also data based
-        visuals: {
-          drawCmd: 'drawGrid',
-          show: true,
-          color: [0, 0, 0, 1],
-          subColor: [0, 0, 1, 0.5],
-          fadeOut: false,
-          transparent: true
+    // process entities and inject extras
+    const solids = entitiesFromSolids({}, demoSolids({ scale: 1 }))
+
+    // prepare the camera
+    const perspectiveCamera = cameras.perspective
+    const camera = Object.assign({}, perspectiveCamera.defaults)
+
+    const options = {
+        glOptions: { container: el },
+        camera,
+        drawCommands: {
+            // draw commands bootstrap themselves the first time they are run
+            drawGrid: drawCommands.drawGrid, // require('./src/rendering/drawGrid/index.js'),
+            drawAxis: drawCommands.drawAxis, // require('./src/rendering/drawAxis'),
+            drawMesh: drawCommands.drawMesh // require('./src/rendering/drawMesh/index.js')
         },
-        size: [500, 500],
-        ticks: [10, 1]
-      },
-      {
-        visuals: {
-          drawCmd: 'drawAxis',
-          show: true
+        // data
+        entities: [
+            { // grid data
+                // the choice of what draw command to use is also data based
+                visuals: {
+                    drawCmd: 'drawGrid',
+                    show: true,
+                    color: [0, 0, 0, 1],
+                    subColor: [0, 0, 1, 0.5],
+                    fadeOut: false,
+                    transparent: true
+                },
+                size: [500, 500],
+                ticks: [10, 1]
+            },
+            {
+                visuals: {
+                    drawCmd: 'drawAxis',
+                    show: true
+                }
+            },
+            ...solids
+        ]
+    }
+    // prepare
+    const render = prepareRender(options)
+
+    const gestures = require('most-gestures').pointerGestures(el)
+
+    // rotate & pan
+    gestures.drags
+        .forEach((data) => {
+            const ev = data.originalEvents[0]
+            const { x, y } = data.delta
+            const shiftKey = (ev.shiftKey === true) || (ev.touches && ev.touches.length > 2)
+            if (shiftKey) {
+                panDelta[0] += x
+                panDelta[1] += y
+            } else {
+                rotateDelta[0] -= x
+                rotateDelta[1] -= y
+            }
+        })
+
+    // zoom
+    gestures.zooms
+        .forEach((x) => {
+            zoomDelta -= x
+        })
+
+    // auto fit
+    gestures.taps
+        .filter((taps) => taps.nb === 2)
+        .forEach((x) => {
+            const updated = controls.orbit.zoomToFit({ controls: orbitControls, camera, entities: prevEntities })
+            orbitControls = { ...orbitControls, ...updated.controls }
+        })
+
+    const doRotatePanZoom = () => {
+        if (rotateDelta[0] || rotateDelta[1]) {
+            const updated = controls.orbit.rotate({ controls: orbitControls, camera, speed: rotateSpeed }, rotateDelta)
+            rotateDelta = [0, 0]
+            orbitControls = { ...orbitControls, ...updated.controls }
         }
-      },
-      ...solids
-    ]
-  }
-  // prepare
-  const render = prepareRender(options)
-  // do the actual render :  it is a simple function !
-  render(options)
 
-  // some live animation example
-  let tick = 0
+        if (panDelta[0] || panDelta[1]) {
+            const updated = controls.orbit.pan({ controls: orbitControls, camera, speed: panSpeed }, panDelta)
+            panDelta = [0, 0]
+            camera.position = updated.camera.position
+            camera.target = updated.camera.target
+        }
 
-  let updateCounter = 0
-  const updateAndRender = () => {
-    tick += 0.01
-    camera.position[0] = Math.cos(tick) * 800
-    perspectiveCamera.update(camera, camera)
-    options.camera = camera
-
-    // dynamic geometries, yes indeed !, uncoment this if you want to show it
-    // updateCounter += 1
-
-    if (updateCounter > 360) {
-      const solidsDynamic = entitiesFromSolids({}, demoSolids({ scale: Math.random() }))
-      options.entities = solidsDynamic
-      updateCounter = 0
+        if (zoomDelta) {
+            const updated = controls.orbit.zoom({ controls: orbitControls, camera, speed: zoomSpeed }, zoomDelta)
+            orbitControls = { ...orbitControls, ...updated.controls }
+            zoomDelta = 0
+        }
     }
 
-    // you can change the state of the viewer at any time by just calling the viewer
-    // function again with different params
-    render(options)
-    window.requestAnimationFrame(updateAndRender)
-  }
-  window.requestAnimationFrame(updateAndRender)
 
+
+    const updateAndRender = () => {
+        doRotatePanZoom()
+
+        const updated = controls.orbit.update({ controls: orbitControls, camera })
+        orbitControls = { ...orbitControls, ...updated.controls }
+        camera.position = updated.camera.position
+
+        perspectiveCamera.update(camera, camera)
+        options.camera = camera
+
+        resize(el)
+        render(options)
+        window.requestAnimationFrame(updateAndRender)
+    }
+    window.requestAnimationFrame(updateAndRender)
+
+    const resize = (viewerElement) => {
+        const pixelRatio = window.devicePixelRatio || 1
+        const bounds = viewerElement.getBoundingClientRect()
+
+        const width = (bounds.right - bounds.left) * pixelRatio
+        const height = (bounds.bottom - bounds.top) * pixelRatio
+
+        const prevWidth = viewerElement.width
+        const prevHeight = viewerElement.height
+
+        if (prevWidth !== width || prevHeight !== height) {
+            viewerElement.width = width
+            viewerElement.height = height
+
+            perspectiveCamera.setProjection(camera, camera, { width, height })
+            perspectiveCamera.update(camera, camera)
+        }
+    }
 }
 
 module.exports = demo;
