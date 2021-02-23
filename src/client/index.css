@@ -1,4 +1,4 @@
-html, body {
+html, body, .regl-renderer {
     height: 100%;
 }
 
