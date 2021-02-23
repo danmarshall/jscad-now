@@ -28,6 +28,7 @@ function createProject(opts) {
 function createServer(opts) {
   return budo(opts.fileName,
     {
+      css: '../src/client/index.css',
       live: true,
       open: true,
       port: 8099,
@@ -38,21 +39,17 @@ function createServer(opts) {
 
 function listener(opts) {
   const close = () => {
-    console.log('exiting...')
+    console.log('exiting, please wait...')
     opts.budoInstance.close()
     process.stdin.removeAllListeners('data')
   }
-  const allCommands = `type "exit" or CTRL-c to close server and clean up "${opts.project.fileName}" project file`
+  const allCommands = `press ENTER to close server and clean up "${opts.project.fileName}" project file`
   opts.budoInstance.on('connect', () => {
     console.log(allCommands)
   })
   process.stdin.setEncoding('utf-8')
   process.stdin.on('data', data => {
-    if (data.trim() === 'exit') {
-      close()
-    } else {
-      console.log(`unknown command\n${allCommands}`)
-    }
+    close()
   })
   process.on("SIGINT", function () {
     close()
