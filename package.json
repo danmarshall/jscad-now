@@ -22,7 +22,8 @@
   "homepage": "https://github.com/danmarshall/jscad-now#readme",
   "dependencies": {
     "@jscad/regl-renderer": "^2.0.0-alpha.12",
-    "budo": "^11.6.4"
+    "budo": "^11.6.4",
+    "most-gestures": "^0.4.1"
   },
   "devDependencies": {
     "@jscad/modeling": "^2.0.0-alpha.10"
