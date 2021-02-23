@@ -1,7 +1,8 @@
 const budo = require('budo')
 
 module.exports = function (opts) {
-    return budo(opts.fileName,
+    const { filename, cleanup } = opts
+    return budo(filename,
         {
             css: '../src/client/index.css',
             live: true,
@@ -9,5 +10,5 @@ module.exports = function (opts) {
             port: 8099,
             stream: process.stdout,
         }
-    ).on('exit', opts.cleanup)
+    ).on('exit', cleanup)
 }

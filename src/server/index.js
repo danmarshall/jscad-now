@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const createProject = require('./project')
-const createServer = require('./budo')
+const createBudo = require('./budo')
 const listener = require('./listener')
 
 const modelFile = process.argv[2] || './index.js'
@@ -18,8 +18,8 @@ catch (e) {
 if (modelFileExists) {
 
   const project = createProject(modelFile)
-  const budoInstance = createServer(project)
-  listener({ project, budoInstance })
+  const budo = createBudo(project)
+  listener({ project, budo })
 
 } else {
   console.log(`input file "${modelFile}" does not exist`)

@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const fileName = 'jscad-now.js'
+const filename = 'jscad-now.js'
 const template = fs.readFileSync(path.join(__dirname, 'template.js'), 'utf-8')
 const header = '//this is a generated file, safe to delete it'
 
@@ -14,12 +14,12 @@ module.exports = function (modelFile) {
     const content = template
         .replace('<MODEL>', fixSlashes(modelFile))
         .replace('<CLIENT>', fixSlashes(path.join(__dirname, '../client')))
-    fs.writeFileSync(fileName, `${header}\n${content}`, 'utf-8')
+    fs.writeFileSync(filename, `${header}\n${content}`, 'utf-8')
     return {
-        fileName,
+        filename,
         cleanup: () => {
             //delete file
-            fs.unlinkSync(fileName)
+            fs.unlinkSync(filename)
             process.exit()
         }
     }
