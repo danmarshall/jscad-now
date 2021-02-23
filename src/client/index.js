@@ -6,14 +6,14 @@ const update = require('./update')
 
 module.exports = function (model, getParameterDefinitions) {
 
-  const getSolids = () => {
+  const getEntities = () => {
     //TODO getParameterDefinitions
     return entitiesFromSolids({}, model({ scale: 1 }))
   }
 
   // prepare the camera
   const scope = {
-    solids: getSolids(),
+    entities: getEntities(),
     camera: Object.assign({}, cameras.perspective.defaults),
     rotateDelta: [0, 0],
     panDelta: [0, 0],

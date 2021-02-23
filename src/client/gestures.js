@@ -2,7 +2,7 @@ const { orbit } = require('@jscad/regl-renderer').controls
 const { pointerGestures } = require('most-gestures')
 
 module.exports = function (scope) {
-    const { camera, container, controls } = scope
+    const { camera, container, controls, entities } = scope
     const gestures = pointerGestures(container)
 
     // rotate & pan
@@ -30,7 +30,7 @@ module.exports = function (scope) {
     gestures.taps
         .filter((taps) => taps.nb === 2)
         .forEach((x) => {
-            const updated = orbit.zoomToFit({ controls, camera })
+            const updated = orbit.zoomToFit({ controls, camera, entities })
             scope.updateOrbitControls(updated.controls)
         })
 }
