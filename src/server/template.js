@@ -1,3 +1,3 @@
-var input = require('<INPUT>');
-var client = require('<JSCAD-NOW-SRC>/client');
-client(input.main || input);
+var model = require('<MODEL>');
+var client = require('<CLIENT>');
+client(model.main || model, model.getParameterDefinitions);
