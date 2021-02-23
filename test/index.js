@@ -1,7 +1,9 @@
-function main (parameters) {
-    const { colorize } = require('@jscad/modeling').colors
-    const { cube, cuboid, line, sphere, star } = require('@jscad/modeling').primitives
-    const { intersect, subtract } = require('@jscad/modeling').booleans
+const jscadModeling = require('@jscad/modeling')
+
+function main(parameters) {
+    const { colorize } = jscadModeling.colors
+    const { cube, cuboid, line, sphere, star } = jscadModeling.primitives
+    const { intersect, subtract } = jscadModeling.booleans
 
     const logo = [
         colorize([1.0, 0.4, 1.0], subtract(
