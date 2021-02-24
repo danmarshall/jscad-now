@@ -8,7 +8,7 @@ const getParameterValuesFromUIControls = require('./parameters/core/getParameter
 const getControls = require('./parameters/web/getControls')
 const prepareParameterInputs = require('./inputs')
 
-module.exports = function (size, model, getParameterDefinitions) {
+module.exports = function (gridsize, model, getParameterDefinitions) {
 
   const getEntities = (params) => {
     return entitiesFromSolids({}, model(params))
@@ -16,6 +16,7 @@ module.exports = function (size, model, getParameterDefinitions) {
 
   // prepare the camera
   const scope = {
+    gridsize,
     parameterDefinitions: null,
     paramState: {},
     entities: null,
@@ -44,5 +45,5 @@ module.exports = function (size, model, getParameterDefinitions) {
   })
 
   //draw loop
-  update(scope, size)
+  update(scope)
 }

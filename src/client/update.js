@@ -3,8 +3,8 @@ const { orbit } = require('@jscad/regl-renderer').controls
 const getRenderOptions = require('./renderoptions')
 const doRotatePanZoom = require('./panzoom')
 
-module.exports = function (scope, size) {
-    const render = prepareRender(getRenderOptions(scope, size))
+module.exports = function (scope) {
+    const render = prepareRender(getRenderOptions(scope))
 
     const updateAndRender = () => {
         doRotatePanZoom(scope)
@@ -31,7 +31,7 @@ module.exports = function (scope, size) {
         }
         cameras.perspective.update(camera, camera)
 
-        render(getRenderOptions(scope, size))
+        render(getRenderOptions(scope))
         window.requestAnimationFrame(updateAndRender)
     }
     window.requestAnimationFrame(updateAndRender)
