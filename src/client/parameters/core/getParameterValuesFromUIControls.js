@@ -24,6 +24,7 @@ const getParameterValuesFromUIControls = (paramControls, parameterDefinitions, o
         break
       case 'float':
       case 'number':
+      case 'slider':
         value = control.value
         if (!isNaN(parseFloat(value)) && isFinite(value)) {
           value = parseFloat(value)
@@ -63,7 +64,7 @@ const getParameterValuesFromUIControls = (paramControls, parameterDefinitions, o
       }
     }
     parameterValues[control.paramName] = value
-  // console.log(control.paramName+":"+parameterValues[control.paramName])
+    // console.log(control.paramName+":"+parameterValues[control.paramName])
   }
   return parameterValues
 }
