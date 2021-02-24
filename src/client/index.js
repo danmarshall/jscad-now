@@ -7,6 +7,7 @@ const getParameterValuesFromParameters = require('./parameters/core/getParameter
 const getParameterValuesFromUIControls = require('./parameters/core/getParameterValuesFromUIControls')
 const getControls = require('./parameters/web/getControls')
 const prepareParameterInputs = require('./inputs')
+const css = require('./index.css')
 
 module.exports = function (gridsize, model, getParameterDefinitions) {
 
