@@ -17,7 +17,8 @@ catch (e) {
 
 if (modelFileExists) {
 
-  const project = createProject([50, 50], modelFile)
+  const gridsize = [500, 500]
+  const project = createProject(gridsize, modelFile)
   const budo = createBudo(project)
   listener({ project, budo })
 
