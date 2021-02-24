@@ -5,3 +5,8 @@ html, body, .regl-renderer {
 body {
     font-family: sans-serif;
 }
+
+.parameters {
+    bottom: 1em;
+    position: absolute;
+}

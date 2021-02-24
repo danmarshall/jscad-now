@@ -1,6 +1,6 @@
-module.exports = function () {
+module.exports = function (className) {
     const el = document.createElement('div')
-    el.className = 'regl-renderer'
+    el.className = className
     document.body.appendChild(el)
     return el
 }

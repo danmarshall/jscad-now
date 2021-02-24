@@ -17,7 +17,7 @@ catch (e) {
 
 if (modelFileExists) {
 
-  const project = createProject(modelFile)
+  const project = createProject([50, 50], modelFile)
   const budo = createBudo(project)
   listener({ project, budo })
 

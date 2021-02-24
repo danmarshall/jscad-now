@@ -9,11 +9,12 @@ function fixSlashes(s) {
     return s.replace(/\\/g, '/')
 }
 
-module.exports = function (modelFile) {
+module.exports = function (size, modelFile) {
     // create file from template
     const content = template
-        .replace('<MODEL>', fixSlashes(modelFile))
-        .replace('<CLIENT>', fixSlashes(path.join(__dirname, '../client')))
+        .replace('SIZE', JSON.stringify(size))
+        .replace('MODEL', JSON.stringify(fixSlashes(modelFile)))
+        .replace('CLIENT', JSON.stringify(fixSlashes(path.join(__dirname, '../client'))))
     fs.writeFileSync(filename, `${header}\n${content}`, 'utf-8')
     return {
         filename,

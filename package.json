@@ -23,7 +23,8 @@
   "dependencies": {
     "@jscad/regl-renderer": "^2.0.0-alpha.12",
     "budo": "^11.6.4",
-    "most-gestures": "^0.4.1"
+    "most-gestures": "^0.4.1",
+    "nanohtml": "^1.9.1"
   },
   "devDependencies": {
     "@jscad/modeling": "^2.0.0-alpha.10"
