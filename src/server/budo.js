@@ -10,7 +10,7 @@ module.exports = function (opts) {
             port: 8099,
             stream: process.stdout,
             browserify: {
-                plugin: b => b.transform(browserifyCss, {global: true})
+                plugin: b => b.transform(browserifyCss, { autoInject: false, global: true })
             }
         }
     ).on('exit', cleanup)

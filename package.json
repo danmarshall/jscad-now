@@ -29,8 +29,5 @@
   },
   "devDependencies": {
     "@jscad/modeling": "^2.0.0-alpha.10"
-  },
-  "browserify-css": {
-    "autoInject": false
   }
 }
