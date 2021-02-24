@@ -3,7 +3,7 @@ Instantly view a [jscad V2](https://github.com/jscad/OpenJSCAD.org/tree/V2) modu
 
 ![jscad-now](https://user-images.githubusercontent.com/11507384/108975383-494f1680-763b-11eb-90b9-ec7ff6665921.gif)
 
-`jscad-now` is a live reloading viewer powered by [budo](https://www.npmjs.com/package/budo) and [browserify](https://www.npmjs.com/package/browserify) and the [@jscad/regl-renderer](https://www.npmjs.com/package/@jscad/regl-renderer). It is meant to be an offline, lightweight way to help you develop your local jscad models.
+`jscad-now` is a live reloading viewer powered by [budo](https://www.npmjs.com/package/budo) and [browserify](https://www.npmjs.com/package/browserify) and the [@jscad/regl-renderer](https://www.npmjs.com/package/@jscad/regl-renderer). It is an offline way to help you develop your local jscad models.
 
 ## Installation
 This tool is meant to be installed globally on your machine, so that you can invoke it in any folder where you are developing a model.
