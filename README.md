@@ -33,3 +33,4 @@ Press ENTER in the terminal when you are finished viewing to stop the server and
 1. Download the current model via [@jscad/io](https://www.npmjs.com/package/@jscad/io)
 1. Configurable port number (run multiple instances)
 1. Parameter type coercion
+1. Keep camera position between reloads
