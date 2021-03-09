@@ -10,3 +10,9 @@ body {
     bottom: 1em;
     position: absolute;
 }
+
+.download {
+    bottom: 1em;
+    right: 1em;
+    position: absolute;
+}
