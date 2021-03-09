@@ -3,25 +3,29 @@ const createElement = require('./element')
 const serializer = require('@jscad/stl-serializer')
 
 const buttons = (scope) => {
-    const button = html`<button id='updateDesignFromParams' >download</button>`
-    const div = createElement('links')
+    const labelName = html`<label>name: </label>`
+    const textName = html`<input type="text" value="model">`
+    const button = html`<button>download</button>`
+    const links = createElement('links')
     button.onclick = () => {
         const solids = scope.model(scope.paramState)
         const str = serializer.serialize({
             binary: false,
             statusCallback: (status) => {
-                div.innerHTML = status.progress
+                links.innerHTML = status.progress
             }
         }, solids)
 
-        div.innerHTML = '';
-        const link = html`<a href="data:application/stl,${encodeURIComponent(str.join(''))}" download="${'foo.stl'}" >download</a>`
-        div.appendChild(link)
+        links.innerHTML = '';
+        const link = html`<a href="data:application/stl,${encodeURIComponent(str.join(''))}" download="${textName.value}.stl" >${textName.value}.stl</a>`
+        links.appendChild(link)
     }
 
     const d = createElement('download')
+    d.appendChild(labelName)
+    d.appendChild(textName)
     d.appendChild(button)
-    d.appendChild(div)
+    d.appendChild(links)
 }
 
 module.exports = buttons
