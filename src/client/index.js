@@ -7,6 +7,7 @@ const getParameterValuesFromParameters = require('./parameters/core/getParameter
 const getParameterValuesFromUIControls = require('./parameters/core/getParameterValuesFromUIControls')
 const getControls = require('./parameters/web/getControls')
 const prepareParameterInputs = require('./inputs')
+const prepareDownloadButtons = require('./download')
 const injectStyle = require('./style')
 
 injectStyle()
@@ -19,6 +20,7 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
 
   // prepare the camera
   const scope = {
+    model,
     gridsize,
     parameterDefinitions: null,
     paramState: {},
@@ -46,6 +48,8 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
     scope.paramState = getParameterValuesFromUIControls(getControls(), scope.parameterDefinitions)
     scope.entities = getEntities(scope.paramState)
   })
+  prepareDownloadButtons(scope)
+
 
   //draw loop
   update(scope)
