@@ -1,6 +1,6 @@
 {
   "name": "jscad-now",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Instantly view a jscad V2 module",
   "bin": {
     "jscad-now": "bin/cli.js"
