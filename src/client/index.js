@@ -17,7 +17,7 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
   const getEntities = (params) => {
     return entitiesFromSolids({}, model(params))
   }
-
+  
   // prepare the camera
   const scope = {
     model,
@@ -34,6 +34,20 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
     updateOrbitControls: (updated) => {
       scope.controls = { ...scope.controls, ...updated }
     }
+  }
+
+  // on refresh store the current camera position
+  window.addEventListener('beforeunload', () => {
+    if (!window.skipCamera) {
+      window.localStorage.setItem('jscad-now-camera', scope.camera.position)
+    }
+  });
+
+  savedCameraPosition = window.localStorage.getItem('jscad-now-camera') || null
+
+  if (savedCameraPosition != null) {
+    scope.camera.position = savedCameraPosition.split(",").map(function (x) { return parseInt(x, 10); });
+    console.log(`restored camera position: ${scope.camera.position}`)
   }
 
   if (getParameterDefinitions) {
@@ -54,3 +68,4 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
   //draw loop
   update(scope)
 }
+

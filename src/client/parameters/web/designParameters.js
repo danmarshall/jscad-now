@@ -14,6 +14,7 @@ const designParameters = (state, paramsCallbacktoStream, i18n) => {
             ${controls}
       </table>
     </span>
+    <hr />
     <span id='paramsControls'>
       <button id='updateDesignFromParams'>${i18n`update`}</button>
       <button id='resetDesignToParameterDefaults'>${i18n`reset`}</button>
