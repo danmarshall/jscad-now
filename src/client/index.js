@@ -38,13 +38,16 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
 
   // on refresh store the current camera position
   window.addEventListener('beforeunload', () => {
-    window.localStorage.setItem('jscad-now-camera', scope.camera.position)
+    if (!window.skipCamera) {
+      window.localStorage.setItem('jscad-now-camera', scope.camera.position)
+    }
   });
 
   savedCameraPosition = window.localStorage.getItem('jscad-now-camera') || null
 
   if (savedCameraPosition != null) {
     scope.camera.position = savedCameraPosition.split(",").map(function (x) { return parseInt(x, 10); });
+    console.log(`restored camera position: ${scope.camera.position}`)
   }
 
   if (getParameterDefinitions) {

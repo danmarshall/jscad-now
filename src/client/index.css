@@ -6,13 +6,37 @@ body {
     font-family: sans-serif;
 }
 
-.parameters {
+.parameters, .download {
+    padding: 10px;
+    margin: 10px;
+    background: #e9eaee;
+    border: 2px solid #ffffff;
+    box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+    -moz-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+    -webkit-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     bottom: 1em;
     position: absolute;
+    opacity: 0.85;
 }
 
+.download hr, .parameters hr {
+    margin: 0.5em 0 .5em 0;
+    border: 0;
+    border-top: 1px solid #c6c0c0;
+}
+
+.parameters button {
+    padding: 2px;
+    margin: 5px;
+ }
+
 .download {
-    bottom: 1em;
     right: 1em;
-    position: absolute;
+}
+
+.download label,input,button {
+    margin: 5px;
 }
