@@ -2,7 +2,7 @@ const createElement = require('./element')
 const designParameters = require('./parameters/web/designParameters')
 
 module.exports = function (scope, callback) {
-    createElement('parameters').appendChild(designParameters(
+    const designParamElements = designParameters(
         {
             design: {
                 parameterValues: scope.paramState,
@@ -12,5 +12,7 @@ module.exports = function (scope, callback) {
         },
         { callback },
         (s) => s)
-    )
+    if (designParamElements) {
+        createElement('parameters').appendChild(designParamElements)
+    }
 }

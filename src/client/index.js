@@ -54,6 +54,8 @@ module.exports = function (gridsize, model, getParameterDefinitions) {
     scope.parameterDefinitions = getParameterDefinitions()
     scope.paramState = getParameterValuesFromParameters(scope.parameterDefinitions)
     scope.entities = getEntities(scope.paramState)
+  } else {
+    scope.entities = getEntities()
   }
 
   // prepare
