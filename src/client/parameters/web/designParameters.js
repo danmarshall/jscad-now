@@ -4,6 +4,9 @@ const { createParamControls } = require('./parameterControls')
 
 const designParameters = (state, paramsCallbacktoStream, i18n) => {
   const { parameterValues, parameterDefinitions, parameterDefaults } = state.design
+  if (!parameterDefinitions) {
+    return '';
+  }
   const { controls } = createParamControls(
     Object.assign({}, parameterDefaults, parameterValues), parameterDefinitions, paramsCallbacktoStream.callback
   )
