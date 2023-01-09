@@ -1,5 +1,5 @@
 # jscad-now
-🧱👀 Instantly view a [jscad V2](https://github.com/jscad/OpenJSCAD.org/tree/V2) module
+🧱👀 Instantly view a [jscad V2](https://github.com/jscad/OpenJSCAD.org/tree/V2) module while coding
 
 ![jscad-now](https://user-images.githubusercontent.com/11507384/108975383-494f1680-763b-11eb-90b9-ec7ff6665921.gif)
 
