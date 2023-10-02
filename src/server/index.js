@@ -4,7 +4,9 @@ const createProject = require('./project')
 const createBudo = require('./budo')
 const listener = require('./listener')
 
-const modelFile = process.argv[2] || './index.js'
+const modelFile = process.argv.length > 2 
+  ? path.resolve(process.argv[2]) 
+  : path.resolve('./index.js')
 let modelFileExists = false
 
 try {
