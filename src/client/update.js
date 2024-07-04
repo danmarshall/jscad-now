@@ -32,7 +32,10 @@ module.exports = function (scope) {
         cameras.perspective.update(camera, camera)
 
         render(getRenderOptions(scope))
-        window.requestAnimationFrame(updateAndRender)
     }
     window.requestAnimationFrame(updateAndRender)
+    
+    setInterval(function() {
+        window.requestAnimationFrame(updateAndRender)
+    }, 100);
 }
